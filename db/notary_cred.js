@@ -1,4 +1,8 @@
-/* ! ZAP CLI Copyright(c) 2018 Kudriavtsev Sergey @ smartum.pro MIT Licensed */
+/*!
+ * ZAP CLI
+ * Copyright(c) 2018 Kudriavtsev Sergey @ smartum.pro
+ * MIT Licensed
+ */
 "use strict";
 const model = {};
 

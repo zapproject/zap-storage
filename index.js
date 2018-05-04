@@ -1,14 +1,14 @@
-/* ! ZAP CLI v0.1.0 Copyright(c) 2018 Kudriavtsev Sergey @ smartum.pro MIT Licensed */
-
+/*!
+ * ZAP CLI v0.1.0
+ * Copyright(c) 2018 Kudriavtsev Sergey @ smartum.pro
+ * MIT Licensed
+ */
+"use strict";
 const program = require('commander');
 const dbPath = './db.sqllite'
 
 program.version('0.1.0', '-v, --version')
-.option('-d, --dbpath [path]', 'Path of db')
-//  .option('-n, --new [key]', 'Add new key')
-//  .option('-d, --del [key]', 'Del key')
-//  .option('-h, --help', 'Help list')
-//  .parse(process.argv)
+  .option('-d, --dbpath [path]', 'Path of db')
   .arguments('<cmd> [env0] [env1] [env2] [env3]')
   .action((cmd, env0, env1, env2, env3) => {
     cmdVal = cmd;
