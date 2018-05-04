@@ -1,11 +1,8 @@
 {
-  "name": "oracle-cli",
+  "name": "zap-cli",
   "version": "1.0.0",
-  "description": "Oracle store",
+  "description": "Zap Oracles SDK command line tool.",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "bin":{"zap-cli":"./index.js"},
   "keywords": [
     "oracle",
