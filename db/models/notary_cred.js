@@ -85,7 +85,7 @@ model.delete = (id, pid, accesskey, secretkey) => {
  * @return {void}
  */
 model.read = (id, pid, accesskey, secretkey) => {
-  console.log('Read Rows ..' + pid);
+  console.log('Read Rows ..');
 
   let where = '';
   if (id && id !== 'null' )

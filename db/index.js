@@ -11,10 +11,11 @@ let models = {};
 let db = {};
 
 // read all models
-fs.readdirSync(__dirname).filter((file) => {
+let modelsPath = __dirname + '/models';
+fs.readdirSync(modelsPath).filter((file) => {
   return (file.indexOf(".") > 0) && (file !== "index.js");
 }).forEach((file) => {
-  let model = require(path.join(__dirname, file));
+  let model = require(path.join(modelsPath, file));
   models[model.name] = model;
 });
 

@@ -6,6 +6,7 @@
 "use strict";
 const program = require('commander');
 const dbPath = './db.sqllite'
+let cmdVal,env0Val,env1Val,env2Val,env3Val;
 
 program.version('0.1.0', '-v, --version')
   .option('-d, --dbpath [path]', 'Path of db')
