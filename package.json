@@ -1,11 +1,12 @@
 {
-  "name": "oracle-store",
+  "name": "oracle-cli",
   "version": "1.0.0",
   "description": "Oracle store",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "bin":{"oracle-cli":"./index.js"},
   "keywords": [
     "oracle",
     "store",
