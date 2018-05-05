@@ -3,14 +3,15 @@
  * Copyright(c) 2018 Kudriavtsev Sergey @ smartum.pro
  * MIT Licensed
  */
-'use strict';
+
 const fs = require('fs');
 const path = require('path');
 const Sequelize = require('sequelize');
 
 const env = process.env.NODE_ENV || 'production';
 const config = require('./config/db.json')[env];
-const modelsPath = __dirname + '/models';
+
+const modelsPath = path.join(__dirname, 'models');
 const db = {};
 db.Sequelize = Sequelize;
 
@@ -45,7 +46,6 @@ module.exports = async (storage) => {
     await db.sequelize.sync().catch((err) => {
       console.log(err, 'Something went wrong with the Database Update!');
     });
-
   }
 
   return db;

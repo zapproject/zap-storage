@@ -17,7 +17,10 @@
     "semi": ["error", "always"],
     "no-console": ["error", { allow: ["warn", "error", "log"] }],
     "no-shadow": ["error", {"hoist": "never", "allow": ["done","err","user","__dirname","models","password"] }],
-    "object-shorthand": ["error", "always", { "avoidExplicitReturnArrows": true , "avoidQuotes": false  }]
+    "object-shorthand": ["error", "always", { "avoidExplicitReturnArrows": true , "avoidQuotes": false  }],
+    "one-var-declaration-per-line": ["error", "initializations"],
+    "one-var": ["error", { "let": "consecutive" }],
+    "no-unused-vars": ["error", { "vars": "local", "args": "none" }]
 /*
 
     "stop_require-jsdoc": ["error", {

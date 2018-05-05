@@ -3,22 +3,21 @@
  * Copyright(c) 2018 Kudriavtsev Sergey @ smartum.pro
  * MIT Licensed
  */
-"use strict";
+
+const dbPath = './db.sqlite';
 const program = require('commander');
-const dbPath = './db.sqlite'
-let cmdVal,env0Val,env1Val,env2Val,env3Val;
+
+let cmdVal, env0Val, env1Val, env2Val;
 
 program.version('0.1.0', '-v, --version')
   .option('-d, --dbpath [path]', 'Path of db')
   .arguments('<cmd> [env0] [env1] [env2] [env3]')
-  .action((cmd, env0, env1, env2, env3) => {
+  .action((cmd, env0, env1, env2) => {
     cmdVal = cmd;
     env0Val = env0;
     env1Val = env1;
     env2Val = env2;
-    env3Val = env3;
-
-});
+  });
 
 program.on('--help', () => {
   console.log('');
@@ -43,44 +42,27 @@ program.on('--help', () => {
 program.parse(process.argv);
 
 // init Database
-require('./db')(program.dbpath || dbPath).then(db => {
-
-  if (typeof cmdVal === 'undefined') {
-    console.error(`Unknown command: ${cmdVal}`);
-    process.exit(1);
-
-  } else if (cmdVal == 'add') {
-    // validation params
-    if (env0Val && env1Val && env2Val) {
-      db.notary_cred.insert(env0Val, env1Val, env2Val);
-    } else {
-      console.log(`incorrect require params:` +
-        ` pid=${env0Val || '?'} accesskey=${env1Val || '?'} secretkey=${env2Val || '?'}`);
+require('./db')(program.dbpath || dbPath)
+  .then((db) => {
+    if (typeof cmdVal === 'undefined') {
+      console.error(`Unknown command: ${cmdVal}`);
+      process.exit(1);
+    } else if (cmdVal === 'add') {
+      // validation params
+      if (env0Val && env1Val && env2Val) {
+        db.notary_cred.insert(env0Val, env1Val, env2Val);
+      } else {
+        console.log(`incorrect require params: pid=${env0Val || '?'} accesskey=${env1Val || '?'} secretkey=${env2Val || '?'}`);
+      }
+    } else if (cmdVal === 'delbyid') {
+      db.notary_cred.delete(env0Val);
+    } else if (cmdVal === 'del') {
+      db.notary_cred.delete(null, env0Val, env1Val, env2Val);
+    } else if (cmdVal === 'ls') {
+      db.notary_cred.read();
+    } else if (cmdVal === 'getbyid') {
+      db.notary_cred.read(env0Val);
+    } else if (cmdVal === 'get') {
+      db.notary_cred.read(null, env0Val, env1Val, env2Val);
     }
-
-  } else if (cmdVal == 'delbyid') {
-
-    db.notary_cred.delete(env0Val);
-
-  } else if (cmdVal == 'del') {
-
-    db.notary_cred.delete(null, env0Val, env1Val, env2Val);
-
-  } else if (cmdVal == 'ls') {
-
-    db.notary_cred.read();
-
-  } else if (cmdVal == 'getbyid') {
-
-    db.notary_cred.read(env0Val);
-
-  } else if (cmdVal == 'get') {
-
-    db.notary_cred.read(null, env0Val, env1Val, env2Val);
-  }
-
-});
-
-
-
-// db.close();
+  });
