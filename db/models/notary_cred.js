@@ -3,33 +3,17 @@
  * Copyright(c) 2018 Kudriavtsev Sergey @ smartum.pro
  * MIT Licensed
  */
-"use strict";
+'use strict';
 const model = {};
-
-model.name = 'notary_cred';
-
-/**
- * init model driver
- * @param  {obj} driver driver of db
- * @return {void}
- */
-model.init = (driver) => {
-  model.driver = driver;
-  model.create();
-}
+const name = 'notary_cred';
 
 /**
- * create table of model
+ * init model provider
+ * @param  {obj} provider driver of provider
  * @return {void}
  */
-model.create = () => {
-  console.log(`Create table ${model.name}`);
-  model.driver.run(`CREATE TABLE IF NOT EXISTS ${model.name} (
-      id  INTEGER PRIMARY KEY AUTOINCREMENT,
-      pid INTEGER,
-      accesskey TEXT,
-      secretkey TEXT
-    )`);
+model.init = (provider) => {
+  model.provider = provider;
 }
 
 /**
@@ -39,12 +23,12 @@ model.create = () => {
  * @param  {TEXT} secretkey key
  * @return {void}
  */
-model.insert = (pid, accesskey, secretkey) => {
-  console.log(`Insert row to ${model.name}`);
-  const stmt = model.driver.prepare(`INSERT INTO ${model.name}(pid,accesskey,secretkey) VALUES (?,?,?)`);
+model.insert = function(pid, accesskey, secretkey) {
 
-  stmt.run(pid, accesskey, secretkey);
-  stmt.finalize();
+  this.create({pid: pid, accesskey: accesskey, secretkey: secretkey}).then(() =>{
+    console.log(`Insert row to ${name}`);
+  })
+
 }
 
 /**
@@ -55,11 +39,10 @@ model.insert = (pid, accesskey, secretkey) => {
  * @param  {TEXT} secretkey key
  * @return {void}
  */
-model.delete = (id, pid, accesskey, secretkey) => {
-  console.log(`Delete row in ${model.name}`);
+model.delete = function(id, pid, accesskey, secretkey) {
 
   let where = '';
-  if (id && id !== 'null' )
+  if (id && id !== 'null')
     where = where + ` and id = ${id} `;
   if (pid && pid !== 'null')
     where = where + ` and pid = ${pid} `;
@@ -70,10 +53,10 @@ model.delete = (id, pid, accesskey, secretkey) => {
   if (where !== '')
     where = 'WHERE 1 = 1 ' + where;
 
-  const stmt = model.driver.prepare(`DELETE FROM ${model.name} ${where}`);
+  this.provider.query(`DELETE FROM ${name} ${where}`).then(rows => {
+    console.log(`Delete row in ${name}`);
+  });
 
-  stmt.run();
-  stmt.finalize();
 }
 
 /**
@@ -84,11 +67,10 @@ model.delete = (id, pid, accesskey, secretkey) => {
  * @param  {TEXT} secretkey key
  * @return {void}
  */
-model.read = (id, pid, accesskey, secretkey) => {
-  console.log('Read Rows ..');
+model.read = function(id, pid, accesskey, secretkey) {
 
   let where = '';
-  if (id && id !== 'null' )
+  if (id && id !== 'null')
     where = where + ` and id = ${id} `;
   if (pid && pid !== 'null')
     where = where + ` and pid = ${pid} `;
@@ -99,13 +81,39 @@ model.read = (id, pid, accesskey, secretkey) => {
   if (where !== '')
     where = 'WHERE 1 = 1 ' + where;
 
-  model.driver.all(`SELECT * FROM ${model.name} ${where}`, (err, rows) => {
+  this.provider.query(`SELECT id,pid, accesskey, secretkey,
+                              strftime('%Y-%m-%d %H:%M:%S', updatedAt) as updatedAt
+                         FROM ${name} ${where}`).then(rows => {
+    console.log('Read Rows ..');
+    console.log('------------------------');
     if (rows)
-      rows.forEach((row) => {
+      rows[0].forEach(row => {
         console.log(JSON.stringify(row));
-      })
-  })
+      });
+    }
+  );
   // return rows;);
 }
 
-module.exports = model;
+module.exports = function(sequelize, DataTypes) {
+  const notary_cred = sequelize.define(name, {
+    pid: DataTypes.INTEGER,
+    accesskey: DataTypes.TEXT,
+    secretkey: DataTypes.TEXT,
+
+    createdAt: {
+      type: DataTypes.DATE
+    },
+    updatedAt: {
+      type: DataTypes.DATE
+    }
+  }, {});
+
+  notary_cred.associate = function(models) {
+    // associations can be defined here
+  };
+
+  // expand the model by private methods
+  model.init(sequelize);
+  return Object.assign(notary_cred, model);
+};

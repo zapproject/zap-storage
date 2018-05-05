@@ -6,7 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "bin":{"oracle-cli":"./index.js"},
+  "bin": {
+    "oracle-cli": "./index.js"
+  },
   "keywords": [
     "oracle",
     "store",
@@ -16,6 +18,9 @@
   "license": "MIT",
   "dependencies": {
     "commander": "^2.15.1",
-    "sqlite3": "^4.0.0"
+    "sequelize": "^4.37.6"
+  },
+  "devDependencies": {
+    "sequelize-cli": "^4.0.0"
   }
 }

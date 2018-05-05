@@ -1,0 +1,38 @@
+{
+  "development": {
+    "logging": false,
+    "operatorsAliases": false,
+    "database":"oracle",
+    "username":null,
+    "password":null,
+    "dialect": "sqlite",
+    "storage": "../devdb.sqlite",
+    "define": {
+        "freezeTableName": true
+    }
+  },
+  "test": {
+    "logging": false,
+    "operatorsAliases": false,
+    "database":"oracle",
+    "username":null,
+    "password":null,
+    "dialect": "sqlite",
+    "storage": "../testdb.sqlite",
+    "define": {
+        "freezeTableName": true
+    }
+  },
+  "production": {
+    "logging": false,
+    "operatorsAliases": false,
+    "database":"oracle",
+    "username":null,
+    "password":null,
+    "dialect": "sqlite",
+    "storage": "../db.sqlite",
+    "define": {
+        "freezeTableName": true
+    }
+  }
+}
