@@ -1,6 +1,5 @@
 /*!
  * ZAP CLI v0.1.0
- * Copyright(c) 2018 Kudriavtsev Sergey @ smartum.pro
  * MIT Licensed
  */
 
