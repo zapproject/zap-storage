@@ -3,14 +3,11 @@
  * MIT Licensed
  */
 const program = require('commander');
-const Storage = require('../interfaces/StorageKey');
-
+const Storage = require('../../interfaces/StoregeNotary');
 
 let pidVal, accesskeyVal, secretkeyVal;
 
-
 program
-  .option('-d, --dbpath [path]', 'Path of db')
   .action((pid, accesskey, secretkey) => {
     pidVal = (typeof pid !== 'object') ? Number(pid) : null;
     accesskeyVal = (typeof accesskey !== 'object') ? accesskey : null;

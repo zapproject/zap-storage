@@ -22,9 +22,8 @@ db.Sequelize = Sequelize;
  */
 module.exports = async (storage) => {
   if (!db.sequelize) {
-    config.storage = path.join(__dirname, (storage || config.storage));
+    config.storage = path.join(__dirname, '/../', (storage || config.storage));
     db.sequelize = await new Sequelize(config.database, config.username, config.password, config);
-    // console.log(`Start Initial DBConnect to: ${config.database} on host: ${config.storage}`);
 
     // import all models
     fs
@@ -39,7 +38,6 @@ module.exports = async (storage) => {
     Object.keys(db).forEach((modelName) => {
       if ('associate' in db[modelName]) {
         db[modelName].associate(db);
-        console.log(modelName);
       }
     });
 

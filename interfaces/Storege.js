@@ -13,6 +13,7 @@ const Storage = class Storage {
   /**
    * constructor of Storage
    * @param {String} dbpath path of local db
+   * @param {String} modelName path of local db
    */
   constructor(dbpath) {
     this.dbpath = dbpath;
@@ -24,12 +25,17 @@ const Storage = class Storage {
 
   /**
    * init init objects
-   * @param {String} dbpath path of local db
-   * @return {Promise}        return samself
+   * @param {String} dbpath    path of local db
+   * @param {String} modelName current model
+   * @return {Promise}         return samself
    */
   async init(dbpath) {
     await driver(this.dbpath || dbpath).then((models) => {
       this.models = models;
+      this.provider = this.models.provider;
+      if (this.modelName) {
+        this.model = this.models[this.modelName];
+      }
     });
 
     return this;
@@ -52,7 +58,7 @@ const Storage = class Storage {
       throw console.error(`incorrect type params: pid="${pid}" must be number'} secretkey=${secretkey || '?'}`);
     }
 
-    const result = await this.models.notary_cred.create({
+    const result = await this.model.create({
       pid,
       accesskey,
       secretkey,
@@ -82,8 +88,8 @@ const Storage = class Storage {
     if (secretkey && secretkey !== 'null') where = `${where} and secretkey = "${secretkey}" `;
     if (where !== '') where = ` WHERE 1 = 1 ${where}`;
 
-    const result = await this.models.provider
-      .query(`DELETE FROM ${this.models.notary_cred.name} ${where}`);
+    const result = await this.provider
+      .query(`DELETE FROM ${this.model.name} ${where}`);
     return result[0];
   }
 
@@ -107,8 +113,8 @@ const Storage = class Storage {
 
     const result = [];
 
-    await this.models.provider
-      .query(`SELECT * FROM ${this.models.notary_cred.name} ${where}`)
+    await this.provider
+      .query(`SELECT * FROM ${this.model.name} ${where}`)
       .then((rows) => {
         rows[0].forEach((row) => {
           const tmp = row;

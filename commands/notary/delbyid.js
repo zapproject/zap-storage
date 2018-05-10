@@ -3,22 +3,25 @@
  * MIT Licensed
  */
 const program = require('commander');
-const Storage = require('../interfaces/StorageKey');
+const Storage = require('../../interfaces/StoregeNotary');
 
+let idVal;
 
 program
-  .option('-d, --dbpath [path]', 'Path of db')
+  .action((id) => {
+    idVal = (typeof id !== 'object') ? id : null;
+  })
   .parse(process.argv);
 
 const storage = new Storage(program.dbpath);
 
 /**
- * Comand ls
+ * Comand del rows
  */
 storage.init().then((st) => {
-  console.log('Read Rows ..');
+  console.log('Delete Rows ..');
   console.log('----------------------------');
-  st.read().then((row) => {
+  st.del(idVal).then((row) => {
     if (row) console.log(JSON.stringify(row));
   });
 });
