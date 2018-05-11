@@ -22,15 +22,22 @@ program
 
     process.exit(0);
   })
-  .parse(process.argv);
-
-program
   .arguments('<entity> [command]')
   .action((entity, command) => {
+    if (!fs.existsSync(path.join(__dirname, entity))) {
+      throw console.error(`Unknown command: "${entity}"`);
+    }
     if (program.rawArgs[3] === '--help') {
       require(path.join(__dirname, entity, 'help'));
     } else {
-      require(path.join(__dirname, entity, command));
+      if (typeof command === 'undefined') {
+        throw console.error(`Require  operation code: "???" of "${entity}" partition`);
+      }
+      try {
+        require(path.join(__dirname, entity, command));
+      } catch (err) {
+        throw console.error(`Unknown operation: "${command}" of "${entity}" partition`);
+      }
     }
   })
   .parse(process.argv);

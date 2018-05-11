@@ -5,10 +5,12 @@
 const program = require('commander');
 const Storage = require('../../interfaces/StoregeNotary');
 
+
 let pidVal, accesskeyVal, secretkeyVal;
 
 program
-  .action((pid, accesskey, secretkey) => {
+  .arguments('<pid> <accesskey> <secretkey>')
+  .action((entity, command, pid, accesskey, secretkey) => {
     pidVal = (typeof pid !== 'object') ? Number(pid) : null;
     accesskeyVal = (typeof accesskey !== 'object') ? accesskey : null;
     secretkeyVal = (typeof secretkey !== 'object') ? secretkey : null;

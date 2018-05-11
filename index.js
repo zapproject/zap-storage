@@ -3,4 +3,9 @@
  * ZAP CLI v0.1.0
  * MIT Licensed
  */
-require('./commands/cli');
+console.log('');
+try {
+ require('./commands/cli');
+} catch (err) {
+  console.log('....');
+}

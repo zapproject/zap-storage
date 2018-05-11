@@ -8,7 +8,8 @@ const Storage = require('../../interfaces/StoregeNotary');
 let idVal;
 
 program
-  .action((id) => {
+  .arguments('<pid>')
+  .action((entity, command, id) => {
     idVal = (typeof id !== 'object') ? id : null;
   })
   .parse(process.argv);

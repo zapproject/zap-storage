@@ -16,7 +16,9 @@ const storage = new Storage(program.dbpath);
 storage.init().then((st) => {
   console.log('Read Rows ..');
   console.log('----------------------------');
-  st.read().then((row) => {
-    if (row) console.log(JSON.stringify(row));
+  st.read().then((rows) => {
+    rows.forEach((row) => {
+      if (row) console.log(JSON.stringify(row));
+    });
   });
 });

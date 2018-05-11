@@ -15,7 +15,7 @@ console.log('   get      - get keys,          parameters: [pid] [accesskey] [sec
 console.log('');
 console.log('  Examples:');
 console.log('');
-console.log('    $ zap-cli -d ./mydata.sqllite notary add 304 jkdfji4993df pwd#4mddf');
+console.log('    $ zap-cli add 304 jkdfji4993df pwd#4mddf');
 console.log('    $ zap-cli notary ls');
-console.log('    $ zap-cli notary get null i499');
+console.log('    $ zap-cli -d ./mydata.sqllite notary notary get null i499');
 console.log('');
