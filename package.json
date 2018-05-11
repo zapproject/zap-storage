@@ -2,12 +2,12 @@
   "name": "zap-cli",
   "version": "1.0.0",
   "description": "Zap Oracles SDK command line tool.",
-  "main": "index.js",
+  "main": "./commands/cli.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
-    "zap-cli": "./index.js"
+    "zap-cli": "./commands/cli.js"
   },
   "keywords": [
     "oracle",
@@ -18,7 +18,9 @@
   "license": "MIT",
   "dependencies": {
     "commander": "^2.15.1",
-    "sequelize": "^4.37.6"
+    "dateformat": "^3.0.3",
+    "sequelize": "^4.37.6",
+    "sqlite3": "^4.0.0"
   },
   "devDependencies": {
     "sequelize-cli": "^4.0.0"

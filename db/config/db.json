@@ -6,7 +6,7 @@
     "username":null,
     "password":null,
     "dialect": "sqlite",
-    "storage": "../devdb.sqlite",
+    "storage": "devdb.sqlite",
     "define": {
         "freezeTableName": true
     }
@@ -18,7 +18,7 @@
     "username":null,
     "password":null,
     "dialect": "sqlite",
-    "storage": "../testdb.sqlite",
+    "storage": "testdb.sqlite",
     "define": {
         "freezeTableName": true
     }
@@ -30,7 +30,7 @@
     "username":null,
     "password":null,
     "dialect": "sqlite",
-    "storage": "../db.sqlite",
+    "storage": "db.sqlite",
     "define": {
         "freezeTableName": true
     }

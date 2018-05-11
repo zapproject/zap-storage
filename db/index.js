@@ -16,15 +16,14 @@ const db = {};
 db.Sequelize = Sequelize;
 
 /**
- * [exports description]
- * @param  {[type]} storage [description]
- * @return {[type]}         [description]
+ * export init storage method
+ * @param  {String} storage  - name of database
+ * @return {Object}          - storage
  */
 module.exports = async (storage) => {
   if (!db.sequelize) {
-    config.storage = storage || config.storage;
+    config.storage = path.join(__dirname, '/../', (storage || config.storage));
     db.sequelize = await new Sequelize(config.database, config.username, config.password, config);
-    // console.log(`Start Initial DBConnect to: ${config.database} on host: ${config.storage}`);
 
     // import all models
     fs
@@ -48,5 +47,6 @@ module.exports = async (storage) => {
     });
   }
 
+  db.provider = db.sequelize;
   return db;
 };
