@@ -3,15 +3,10 @@
  * MIT Licensed
  */
 const program = require('commander');
-const Storage = require('../../interfaces/StoregeNotary');
-
-let idVal;
+const Storage = require('../../Services/StorageNotary');
 
 program
-  .arguments('<pid>')
-  .action((entity, command, id) => {
-    idVal = (typeof id !== 'object') ? id : null;
-  })
+  .option('-i, --id [id]', 'key id')
   .parse(process.argv);
 
 const storage = new Storage(program.dbpath);
@@ -19,10 +14,14 @@ const storage = new Storage(program.dbpath);
 /**
  * Comand del rows
  */
-storage.init().then((st) => {
-  console.log('Delete Rows ..');
-  console.log('----------------------------');
-  st.del(idVal).then((row) => {
-    if (row) console.log(JSON.stringify(row));
+storage.init()
+  .catch(console.error)
+  .then((st) => {
+    console.log('Delete Rows ..');
+    console.log('----------------------------');
+    st.del(program.id).then((rows) => {
+      rows.forEach((row) => {
+        if (row) console.log(JSON.stringify(row));
+      });
+    }).catch(() => {});
   });
-});

@@ -37,7 +37,7 @@ $ ./commands/cli.js --help
 ```
 * ###### Example add new key of notery
 ```sh
-$ ./commands/cli.js notary add 394 tokenkeyexample keyexample
+$ ./commands/cli.js notary add -p 394 -a tokenkeyexample -s keyexample
 ```
 * ###### Example show all keys of notery
 ```sh
@@ -45,7 +45,7 @@ $ ./commands/cli.js notary ls
 ```
 * ###### Example delete key of notery
 ```sh
-$ ./commands/cli.js notary del 304
+$ ./commands/cli.js notary del -p 304
 ```
 * ###### Example help of notery
 ```sh

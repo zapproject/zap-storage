@@ -2,7 +2,7 @@
  * ZAP CLI
  * MIT Licensed
  */
-const Storage = require('./Storege');
+const Storage = require('./Storage');
 
 /**
  * Storage provuder class of notary_cred entity
@@ -31,9 +31,6 @@ const StorageNotary = class StorageNotary extends Storage {
     // walidation of atrs
     if (!(pid && accesskey && secretkey)) {
       throw console.error(`incorrect require params: pid=${pid || '?'} accesskey=${accesskey || '?'} secretkey=${secretkey || '?'}`);
-    }
-    if (typeof pid !== 'number') {
-      throw console.error(`incorrect type params: pid="${pid}" must be number`);
     }
 
     const result = await this.model.create({
@@ -66,9 +63,23 @@ const StorageNotary = class StorageNotary extends Storage {
     if (secretkey && secretkey !== 'null') where = `${where} and secretkey = "${secretkey}" `;
     if (where !== '') where = ` WHERE 1 = 1 ${where}`;
 
-    const result = await this.provider
+    const result = [];
+
+    await this.provider
+      .query(`SELECT * FROM ${this.model.name} ${where}`)
+      .then((rows) => {
+        rows[0].forEach((row) => {
+          const tmp = row;
+          tmp.updatedAt = Storage.formatDate(tmp.updatedAt);
+          delete tmp.createdAt;
+          result.push(tmp);
+        });
+      });
+
+    await this.provider
       .query(`DELETE FROM ${this.model.name} ${where}`);
-    return result[0];
+
+    return result;
   }
 
 

@@ -2,7 +2,7 @@
  * ZAP CLI
  * MIT Licensed
  */
-const Storage = require('./Storege');
+const Storage = require('./Storage');
 
 /**
  * Storage provuder class of notary_cred entity

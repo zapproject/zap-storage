@@ -3,18 +3,12 @@
  * MIT Licensed
  */
 const program = require('commander');
-const Storage = require('../../interfaces/StoregeNotary');
-
-
-let pidVal, accesskeyVal, secretkeyVal;
+const Storage = require('../../Services/StorageNotary');
 
 program
-  .arguments('<pid> <accesskey> <secretkey>')
-  .action((entity, command, pid, accesskey, secretkey) => {
-    pidVal = (typeof pid !== 'object') ? Number(pid) : null;
-    accesskeyVal = (typeof accesskey !== 'object') ? accesskey : null;
-    secretkeyVal = (typeof secretkey !== 'object') ? secretkey : null;
-  })
+  .option('-p, --pid <pid>', 'process id')
+  .option('-a, --accesskey <accesskey>', 'access key')
+  .option('-s, --secretkey <secretkey>', 'secret key')
   .parse(process.argv);
 
 const storage = new Storage(program.dbpath);
@@ -25,9 +19,9 @@ const storage = new Storage(program.dbpath);
 storage.init()
   .catch(console.error)
   .then((st) => {
-    console.log('new Key ..');
+    console.log('New Key ..');
     console.log('----------------------------');
-    st.add(pidVal, accesskeyVal, secretkeyVal).then((row) => {
+    st.add(program.pid, program.accesskey, program.secretkey).then((row) => {
       if (row) console.log(JSON.stringify(row));
-    });
+    }).catch(() => {});
   });
