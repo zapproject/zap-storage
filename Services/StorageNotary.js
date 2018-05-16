@@ -76,8 +76,7 @@ const StorageNotary = class StorageNotary extends Storage {
         });
       });
 
-    await this.provider
-      .query(`DELETE FROM ${this.model.name} ${where}`);
+    await this.provider.query(`DELETE FROM ${this.model.name} ${where}`);
 
     return result;
   }

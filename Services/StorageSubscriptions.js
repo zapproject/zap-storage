@@ -63,15 +63,28 @@ const StorageNotary = class StorageNotary extends Storage {
     let where = '';
 
     if (id && id !== 'null') where = `${where} and id = ${id} `;
-    if (queryid && queryid !== 'null') where = `${where} and queryid = ${queryid} `;
+    if (queryid && queryid !== 'null') where = `${where} and queryid = "${queryid}" `;
     if (subscriber && subscriber !== 'null') where = `${where} and subscriber like "%${subscriber}%" `;
-    if (query && query !== 'null') where = `${where} and query = "${query}" `;
-    if (endpoint && endpoint !== 'null') where = `${where} and endpoint = "${endpoint}" `;
+    if (query && query !== 'null') where = `${where} and query like "%${query}%" `;
+    if (endpoint && endpoint !== 'null') where = `${where} and endpoint like "%${endpoint}%" `;
     if (where !== '') where = ` WHERE 1 = 1 ${where}`;
 
-    const result = await this.provider
-      .query(`DELETE FROM ${this.model.name} ${where}`);
-    return result[0];
+    const result = [];
+
+    await this.provider
+      .query(`SELECT * FROM ${this.model.name} ${where}`)
+      .then((rows) => {
+        rows[0].forEach((row) => {
+          const tmp = row;
+          tmp.updatedAt = Storage.formatDate(tmp.updatedAt);
+          delete tmp.createdAt;
+          result.push(tmp);
+        });
+      });
+
+    await this.provider.query(`DELETE FROM ${this.model.name} ${where}`);
+
+    return result;
   }
 
 
@@ -88,10 +101,10 @@ const StorageNotary = class StorageNotary extends Storage {
     let where = '';
 
     if (id && id !== 'null') where = `${where} and id = ${id} `;
-    if (queryid && queryid !== 'null') where = `${where} and queryid = ${queryid} `;
+    if (queryid && queryid !== 'null') where = `${where} and queryid = "${queryid}" `;
     if (subscriber && subscriber !== 'null') where = `${where} and subscriber like "%${subscriber}%" `;
-    if (query && query !== 'null') where = `${where} and query = "${query}" `;
-    if (endpoint && endpoint !== 'null') where = `${where} and endpoint = "${endpoint}" `;
+    if (query && query !== 'null') where = `${where} and query like "%${query}%" `;
+    if (endpoint && endpoint !== 'null') where = `${where} and endpoint like "%${endpoint}%" `;
     if (where !== '') where = ` WHERE 1 = 1 ${where}`;
 
     const result = [];

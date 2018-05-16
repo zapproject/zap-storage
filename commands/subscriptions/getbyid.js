@@ -3,25 +3,25 @@
  * MIT Licensed
  */
 const program = require('commander');
-const Storage = require('../../Services/StorageNotary');
+const Storage = require('../../Services/StorageSubscriptions');
 
 program
-  .option('-i, --id <id>', 'key id')
+  .option('-i, --id <id>', 'subscription id')
   .parse(process.argv);
 
 const storage = new Storage(program.dbpath);
 
 /**
- * Comand del rows
+ * Comand get by id
  */
 storage.init()
   .catch(console.error)
   .then((st) => {
-    console.log('Delete Rows ..');
+    console.log('Read Row ..');
     console.log('----------------------------');
-    st.del(program.id).then((rows) => {
+    st.read(program.id).then((rows) => {
       rows.forEach((row) => {
-        if (row) console.log(JSON.stringify(row));
+        if (row) console.log(row);
       });
     }).catch(() => {});
   });
