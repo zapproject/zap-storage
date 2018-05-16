@@ -26,7 +26,8 @@ $ cd CLI
 $ npm install
 $ node . --help
 ```
-
+##### note
+- After the first start of the program, set APPKEY in .env file and safe it
 
 #
 ### Help
@@ -56,16 +57,16 @@ $ ./commands/cli.js notary --help
 
 Client uses a number of open source projects to work properly:
 
-
-* [SQLite3] - awesome web-based text editor
+* [SQLCipher] - Encryption for SQLite
+* [SQLite3] - Awesome web-based text editor
 * [Sequelize] - Sequelize is a promise-based Node.js ORM.
-* [node.js] - evented I/O for the backend
+* [Node.js] - Evented I/O for the backend
 
 License
 ---
 MIT
 
-
+[SQLCipher]:<https://www.zetetic.net/sqlcipher/>
 [Sequelize]: <http://docs.sequelizejs.com/>
 [SQLite3]: <https://github.com/mapbox/node-sqlite3>
 [node.js]: <http://nodejs.org>

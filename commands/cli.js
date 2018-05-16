@@ -3,6 +3,7 @@
  * ZAP CLI v0.1.0
  * MIT Licensed
  */
+require('dotenv').config();
 const fs = require('fs');
 const path = require('path');
 const program = require('commander');
@@ -25,13 +26,13 @@ program
   .arguments('<entity> [command]')
   .action((entity, command) => {
     if (!fs.existsSync(path.join(__dirname, entity))) {
-       console.error(`Unknown command: "${entity}"`);
+      console.error(`Unknown command: "${entity}"`);
     }
     if (program.rawArgs[3] === '--help') {
       require(path.join(__dirname, entity, 'help'));
     } else {
       if (typeof command === 'undefined') {
-         console.error(`Require  operation code: "???" of "${entity}" partition`);
+        console.error(`Require  operation code: "???" of "${entity}" partition`);
       }
       try {
         require(path.join(__dirname, entity, command));

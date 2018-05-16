@@ -5,7 +5,7 @@
  */
 console.log('');
 try {
- require('./commands/cli');
+  require('./commands/cli');
 } catch (err) {
   console.log('....');
 }

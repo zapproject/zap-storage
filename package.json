@@ -19,7 +19,9 @@
   "dependencies": {
     "commander": "^2.15.1",
     "dateformat": "^3.0.3",
+    "dotenv": "^5.0.1",
     "sequelize": "^4.37.6",
+    "sqlcipher": "^1.1.1",
     "sqlite3": "^4.0.0"
   },
   "devDependencies": {

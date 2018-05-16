@@ -3,9 +3,10 @@
     "logging": false,
     "operatorsAliases": false,
     "database":"oracle",
-    "username":null,
+    "username":"admin",
     "password":null,
     "dialect": "sqlite",
+    "dialectModulePath":"sqlcipher",
     "storage": "devdb.sqlite",
     "define": {
         "freezeTableName": true
@@ -15,9 +16,10 @@
     "logging": false,
     "operatorsAliases": false,
     "database":"oracle",
-    "username":null,
+    "username":"admin",
     "password":null,
     "dialect": "sqlite",
+    "dialectModulePath":"sqlcipher",
     "storage": "testdb.sqlite",
     "define": {
         "freezeTableName": true
@@ -27,9 +29,10 @@
     "logging": false,
     "operatorsAliases": false,
     "database":"oracle",
-    "username":null,
+    "username":"admin",
     "password":null,
     "dialect": "sqlite",
+    "dialectModulePath":"sqlcipher",
     "storage": "db.sqlite",
     "define": {
         "freezeTableName": true
