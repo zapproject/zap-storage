@@ -3,9 +3,6 @@
   "version": "1.0.0",
   "description": "Zap Oracles SDK command line tool.",
   "main": "./commands/cli.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "bin": {
     "zap-cli": "./commands/cli.js"
   },
@@ -21,8 +18,7 @@
     "dateformat": "^3.0.3",
     "dotenv": "^5.0.1",
     "sequelize": "^4.37.6",
-    "sqlcipher": "^1.1.1",
-    "sqlite3": "^4.0.0"
+    "sqlcipher": "^1.1.1"
   },
   "devDependencies": {
     "sequelize-cli": "^4.0.0"
