@@ -27,7 +27,7 @@ console.log('           -s --secretkey [secretkey]');
 console.log('');
 console.log('  Examples:');
 console.log('');
-console.log('    $ zap-cli add -p 304 -a jkdfji4993df -s pwd#4mddf');
+console.log('    $ zap-cli notary add -p 304 -a jkdfji4993df -s pwd#4mddf');
 console.log('    $ zap-cli notary ls');
 console.log('    $ zap-cli -d ./mydata.sqllite notary notary get -a i499');
 console.log('');
