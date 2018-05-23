@@ -8,7 +8,7 @@ const name = 'keys';
 module.exports = (sequelize, DataTypes) => {
   const subscriptions = sequelize.define(name, {
     network: DataTypes.STRING,
-    publick: DataTypes.STRING,
+    public: DataTypes.STRING,
     privat: DataTypes.STRING,
 
     createdAt: {
