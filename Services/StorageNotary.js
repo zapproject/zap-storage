@@ -5,7 +5,7 @@
 const Storage = require('./Storage');
 
 /**
- * Storage provuder class of notary_cred entity
+ * Storage provider class of notary_cred entity
  * @type {calss} Storage
  */
 const StorageNotary = class StorageNotary extends Storage {

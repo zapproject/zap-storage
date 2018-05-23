@@ -6,7 +6,7 @@ const driver = require('../db');
 const dateFormat = require('dateformat');
 
 /**
- * Storage provuder class of programm storage
+ * Storage provider class of programm storage
  * @type {calss} Storage
  */
 const Storage = class Storage {

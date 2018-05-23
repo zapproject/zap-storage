@@ -9,7 +9,7 @@ module.exports = {
     network: {
       type: Sequelize.STRING,
     },
-    publick: {
+    public: {
       type: Sequelize.STRING,
     },
     privat: {

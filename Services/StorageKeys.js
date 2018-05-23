@@ -5,7 +5,7 @@
 const Storage = require('./Storage');
 
 /**
- * Storage provuder class of notary_cred entity
+ * Storage provider class of notary_cred entity
  * @type {calss} Storage
  */
 const StorageNotary = class StorageNotary extends Storage {
@@ -23,19 +23,19 @@ const StorageNotary = class StorageNotary extends Storage {
   /**
    * add new key to storage
    * @param  {TEXT}  network  network name
-   * @param  {TEXT}  publick  publick key
+   * @param  {TEXT}  public  public key
    * @param  {TEXT}  privat  private key
    * @return {Promise}           [description]
    */
-  async add(network, publick, privat) {
+  async add(network, public, privat) {
     // walidation of atrs
-    if (!(network && publick && privat)) {
-      throw console.error(`incorrect require params: pid=${network || '?'} accesskey=${publick || '?'} secretkey=${privat || '?'}`);
+    if (!(network && public && privat)) {
+      throw console.error(`incorrect require params: pid=${network || '?'} accesskey=${public || '?'} secretkey=${privat || '?'}`);
     }
 
     const result = await this.model.create({
       network,
-      publick,
+      public,
       privat,
     });
 
@@ -50,16 +50,16 @@ const StorageNotary = class StorageNotary extends Storage {
    * delete keys
    * @param  {INTEGER}    id   id of row
    * @param  {TEXT}  network  network name
-   * @param  {TEXT}  publick  publick key
+   * @param  {TEXT}  public  public key
    * @param  {TEXT}  privat  private key
    * @return {Promise}  void
    */
-  async del(id, network, publick, privat) {
+  async del(id, network, public, privat) {
     let where = '';
 
     if (id && id !== 'null') where = `${where} and id = ${id} `;
     if (network && network !== 'null') where = `${where} and network like "%${network}%" `;
-    if (publick && publick !== 'null') where = `${where} and publick like "%${publick}%" `;
+    if (public && public !== 'null') where = `${where} and public like "%${public}%" `;
     if (privat && privat !== 'null') where = `${where} and privat = "${privat}" `;
     if (where !== '') where = ` WHERE 1 = 1 ${where}`;
 
@@ -86,16 +86,16 @@ const StorageNotary = class StorageNotary extends Storage {
    * read rows
    * @param  {INTEGER}    id   id of row
    * @param  {TEXT}  network  network name
-   * @param  {TEXT}  publick  publick key
+   * @param  {TEXT}  public  public key
    * @param  {TEXT}  privat  private key
    * @return {Promise} {row}  rows of select
    */
-  async read(id, network, publick, privat) {
+  async read(id, network, public, privat) {
     let where = '';
 
     if (id && id !== 'null') where = `${where} and id = ${id} `;
     if (network && network !== 'null') where = `${where} and network like "%${network}%" `;
-    if (publick && publick !== 'null') where = `${where} and publick like "%${publick}%" `;
+    if (public && public !== 'null') where = `${where} and public like "%${public}%" `;
     if (privat && privat !== 'null') where = `${where} and privat = "${privat}" `;
     if (where !== '') where = ` WHERE 1 = 1 ${where}`;
 
